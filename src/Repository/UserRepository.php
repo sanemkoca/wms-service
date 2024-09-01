@@ -31,4 +31,10 @@ class UserRepository extends ServiceEntityRepository
 
         return $users;
     }
+
+    public function registerUser($data): void
+    {
+        $this->getEntityManager()->persist($data);
+        $this->getEntityManager()->flush();
+    }
 }
