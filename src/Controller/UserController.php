@@ -13,11 +13,11 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class UserController extends AbstractController
 {
-    #[Route('/users', name: 'app_users')]
-    public function index(): Response
+    #[Route('/user/list', name: 'user_list', methods: ['GET'])]
+    public function listUser(ManagerRegistry $registry): Response
     {
-        return $this->render('user/index.html.twig', [
-            'controller_name' => 'UserController',
-        ]);
+        $userRepo = new UserRepository($registry);
+        $userList = $userRepo->listUser();
+        return $this->render('user/list.html.twig', ['users' => $userList]);
     }
 }
