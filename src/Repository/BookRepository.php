@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Book;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * @extends ServiceEntityRepository<Book>
@@ -24,4 +25,11 @@ class BookRepository extends ServiceEntityRepository
         return $book;
     }
 
+    public function listBook(): array
+    {
+        /** @var Book[] $books */
+        $books = $this->getEntityManager()->getRepository(Book::class)->findAll();
+
+        return $books;
+    }
 }
