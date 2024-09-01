@@ -31,6 +31,17 @@ class Book
     #[ORM\Column(name: 'is_borrowed', type: 'boolean', options: ['default' => false])]
     private ?bool $isBorrowed = false;
 
+    /**
+     * @var Collection<int, BorrowRecord>
+     */
+    #[ORM\OneToMany(targetEntity: BorrowRecord::class, mappedBy: 'book_id')]
+    private Collection $borrowRecords;
+
+    public function __construct()
+    {
+        $this->borrowRecords = new ArrayCollection();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -99,6 +110,36 @@ class Book
     public function setBorrowed(bool $isBorrowed): static
     {
         $this->isBorrowed = $isBorrowed;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, BorrowRecord>
+     */
+    public function getBorrowRecords(): Collection
+    {
+        return $this->borrowRecords;
+    }
+
+    public function addBorrowRecord(BorrowRecord $borrowRecord): static
+    {
+        if (!$this->borrowRecords->contains($borrowRecord)) {
+            $this->borrowRecords->add($borrowRecord);
+            $borrowRecord->setBookId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBorrowRecord(BorrowRecord $borrowRecord): static
+    {
+        if ($this->borrowRecords->removeElement($borrowRecord)) {
+            // set the owning side to null (unless already changed)
+            if ($borrowRecord->getBookId() === $this) {
+                $borrowRecord->setBookId(null);
+            }
+        }
 
         return $this;
     }
