@@ -1,0 +1,23 @@
+services:
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+    volumes:
+     - "postgres-data:/var/lib/postgresql/data"
+    ports:
+     - "5432:5432"
+
+  pgadmin:
+    image: dpage/pgadmin4
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: sanemkoca@gmail.com
+      PGADMIN_DEFAULT_PASSWORD: root
+    ports:
+       - "5050:80"
+
+volumes:
+    postgres-data:
