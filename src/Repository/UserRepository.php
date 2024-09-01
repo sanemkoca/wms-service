@@ -23,4 +23,12 @@ class UserRepository extends ServiceEntityRepository
 
         return $user;
     }
+
+    public function listUser(): array
+    {
+        /** @var User[] $users */
+        $users = $this->getEntityManager()->getRepository(User::class)->findAll();
+
+        return $users;
+    }
 }
