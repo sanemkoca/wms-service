@@ -32,4 +32,10 @@ class BookRepository extends ServiceEntityRepository
 
         return $books;
     }
+
+    public function createBook($book): void
+    {
+        $this->getEntityManager()->persist($book);
+        $this->getEntityManager()->flush();
+    }
 }
