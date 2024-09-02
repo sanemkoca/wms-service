@@ -35,3 +35,34 @@ Develop a simple system for managing books in a library. The system should allow
 
 ### Objective:
 This task is designed to assess your ability to design and implement a solution to a given problem. You have the freedom to choose the structure and paradigms you wish to use. The focus is on delivering a functional and well-structured solution within the given time. Additionally, if you choose to use a database, include the corresponding SQL schema with your submission.
+
+## SETUP
+Requirements:
+
+1. [Docker](https://docs.docker.com/engine/install/)
+2. [Docker Compose](https://docs.docker.com/compose/install/)
+3. [PHP 8.1](https://www.php.net/downloads.php)
+4. [Composer](https://getcomposer.org/download/)
+5. [Symfony CLI](https://symfony.com/download)
+
+## Installation
+You can run the following commands to run the application.
+
+```bash
+docker-compose up -d
+```
+
+You can run the following code to create migrations.
+```bash
+php bin/console make:migration
+```
+
+```bash
+php bin/console doctrine:migrations:migrate
+```
+
+You can start the server.
+
+```bash
+symfony server:start
+```
