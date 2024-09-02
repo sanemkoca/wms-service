@@ -38,4 +38,15 @@ class BorrowController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+
+    #[Route('/book/return/{recordId}', name: 'return_book', methods: ['GET'])]
+    public function return($recordId, ManagerRegistry $registry): Response
+    {
+        $bookRepository = new BookRepository($registry);
+        $book = $bookRepository->findBookById($recordId);
+        $borrowRecordRepository = new BorrowRecordRepository($registry);
+        $borrowRecordRepository->returnBook($book);
+
+        return $this->redirectToRoute('book_list');
+    }
 }
