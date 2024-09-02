@@ -20,4 +20,22 @@ class UserController extends AbstractController
         $userList = $userRepo->listUser();
         return $this->render('user/list.html.twig', ['users' => $userList]);
     }
+
+    #[Route('/user/add', name: 'user_add', methods: ['GET', 'POST'])]
+    public function add(Request $request, ManagerRegistry $registry): Response
+    {
+        $user = new User();
+        $form = $this->createForm(UserType::class, $user);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $userRepository = new UserRepository($registry);
+            $userRepository->registerUser($user);
+            return $this->redirectToRoute('user_list');
+        }
+
+        return $this->render('user/add.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
 }
