@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Book Create{% endblock %}
+
+{% block body %}
+    {{ form(form) }}
+
+    <a href="{{ path('book_list') }}">Back to list</a>
+{% endblock %}
