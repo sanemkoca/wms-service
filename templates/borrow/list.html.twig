@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Borrow Record List{% endblock %}
+
+{% block body %}
+    <h1>Borrow Record List</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>User</th>
+                <th>Book</th>
+                <th>Borrowed At</th>
+                <th>Returned At</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for borrow in borrows %}
+                <tr>
+                    <td>{{ borrow.id }}</td>
+                    <td>{{ borrow.user.name }} {{ borrow.user.surname }}</td>
+                    <td>{{ borrow.book.title }}</td>
+                    <td>{{ borrow.borrowedAt|date('Y-m-d') }}</td>
+                    <td>{{ borrow.returnedAt|date('Y-m-d') }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('book_list') }}">Book List</a>
+{% endblock %}
