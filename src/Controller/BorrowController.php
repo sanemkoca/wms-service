@@ -2,7 +2,13 @@
 
 namespace App\Controller;
 
+use App\Entity\BorrowRecord;
+use App\Form\BorrowRecordType;
+use App\Repository\BookRepository;
+use App\Repository\BorrowRecordRepository;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
