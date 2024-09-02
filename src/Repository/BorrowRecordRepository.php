@@ -16,28 +16,12 @@ class BorrowRecordRepository extends ServiceEntityRepository
         parent::__construct($registry, BorrowRecord::class);
     }
 
-    //    /**
-//     * @return BorrowRecord[] Returns an array of BorrowRecord objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('u')
-//            ->andWhere('u.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('u.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    public function borrowBook($borrowRecord): void
+    {
+        $borrowRecord->getBookId()->setBorrowed(true);
+        $borrowRecord->setBorrowedAt(new \DateTime());
 
-//    public function findOneBySomeField($value): ?BorrowRecord
-//    {
-//        return $this->createQueryBuilder('u')
-//            ->andWhere('u.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+        $this->getEntityManager()->persist($borrowRecord);
+        $this->getEntityManager()->flush();
+    }
 }
