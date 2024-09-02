@@ -24,4 +24,14 @@ class BorrowRecordRepository extends ServiceEntityRepository
         $this->getEntityManager()->persist($borrowRecord);
         $this->getEntityManager()->flush();
     }
+
+    public function returnBook($book): void
+    {
+        $borrowRecord = $this->getEntityManager()->getRepository(BorrowRecord::class)->findOneBy(['bookId' => $book->getId(), 'returnedAt' => null]);
+        $borrowRecord->getBookId()->setBorrowed(false);
+        $borrowRecord->setReturnedAt(new \DateTime());
+
+        $this->getEntityManager()->persist($borrowRecord);
+        $this->getEntityManager()->flush();
+    }
 }
